@@ -1,10 +1,31 @@
 package com.springboot.mutation.api.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.springboot.mutation.api.dao.IHumanDao;
+import com.springboot.mutation.api.entity.Human;
 
 @Service
 public class HumanServiceImpl implements IHumanService {
 
+	@Autowired
+	private IHumanDao humanDao;
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Human> findAll() {
+		return humanDao.findAll();
+	}
+
+	@Override
+	@Transactional
+	public Human save(Human newHuman) {
+		return humanDao.save(newHuman);
+	}
 	
 	@Override
 	public boolean hasMutation(String[] dna) {
