@@ -3,7 +3,6 @@ package com.springboot.mutation.api.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -63,6 +62,11 @@ public class HumanController {
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 		return new ResponseEntity<Void>(HttpStatus.FORBIDDEN);
+	}
+	
+	@GetMapping("/stats")
+	public Map<String, Object> findStats() {
+		return humanService.findStats();
 	}
 	
 }

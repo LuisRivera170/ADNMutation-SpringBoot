@@ -1,0 +1,3 @@
+INSERT INTO human (id, created_at, dna, is_mutating, name) VALUES (1, '2020-10-20', 'ATGCGA;CAGTGC;TTATGT;AGAAGG;CCCCTA;TCACTG', 1, 'Humano 1')
+INSERT INTO human (id, created_at, dna, is_mutating, name) VALUES (2, '2020-10-20', 'ATGCGA;CAGTGC;TTATTT;AGACGG;GCGTCA;TCACTG', 0, 'Humano 2')
+INSERT INTO human (id, created_at, dna, is_mutating, name) VALUES (3, '2020-03-19', 'CGACGA;CAGTGC;TTATTT;AGACGG;GCGTCA;TCACTG', 0, 'Humano 3')

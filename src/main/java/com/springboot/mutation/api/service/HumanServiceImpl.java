@@ -1,13 +1,14 @@
 package com.springboot.mutation.api.service;
 
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.springboot.mutation.api.dao.IHumanDao;
 import com.springboot.mutation.api.entity.Human;
+import com.springboot.mutation.api.entity.Stats;
 
 @Service
 public class HumanServiceImpl implements IHumanService {
@@ -61,5 +62,23 @@ public class HumanServiceImpl implements IHumanService {
         }
         return true;
     }
+
+	@Override
+	public Map<String, Object> findStats() {
+		Map<String, Object> statsMap = new HashMap<String, Object>();
+		List<Stats> stats = humanDao.findStats();
+		int mutations = 0, noMutations = 0;
+		for (Stats stat: stats) {
+			if (stat.getMutation()) {
+				mutations = stat.getCount();
+				statsMap.put("count_mutations", mutations);
+			} else {
+				noMutations = stat.getCount();
+				statsMap.put("count_no_mutations", noMutations);
+			}
+		}
+		statsMap.put("ratio", Float.valueOf(mutations)/Float.valueOf(noMutations));
+		return statsMap;
+	}
 	
 }
