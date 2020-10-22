@@ -1,8 +1,11 @@
 package com.springboot.mutation.api.service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +15,8 @@ import com.springboot.mutation.api.entity.Stats;
 
 @Service
 public class HumanServiceImpl implements IHumanService {
+	
+	private final String[] DNALETTERS = {"A", "T", "C", "G"};
 
 	@Autowired
 	private IHumanDao humanDao;
@@ -25,7 +30,24 @@ public class HumanServiceImpl implements IHumanService {
 	@Override
 	@Transactional
 	public Human save(Human newHuman) {
+		String[] dna = generateDna();
+		newHuman.setDna(Arrays.asList(dna));
+		newHuman.setIsMutating(hasMutation(dna));
 		return humanDao.save(newHuman);
+	}
+	
+	private String[] generateDna() {
+		String[] dna = new String[6];
+		Random random = new Random();
+		String sequence;
+		for (int i = 0; i < dna.length; i++) {
+			sequence = "";
+			for (int j = 0; j < dna.length; j++) {
+				sequence += DNALETTERS[random.nextInt(DNALETTERS.length)];
+			}
+			dna[i] = sequence;
+		}
+		return dna;
 	}
 	
 	@Override

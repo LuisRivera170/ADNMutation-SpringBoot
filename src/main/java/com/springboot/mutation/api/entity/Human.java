@@ -36,7 +36,6 @@ public class Human implements Serializable{
 	@Column(name = "is_mutating")
 	private Boolean isMutating;
 	
-	@NotNull(message = "El ADN es requerido")
 	@Convert(converter = StringListConverter.class)
 	private List<String> dna;
 	
