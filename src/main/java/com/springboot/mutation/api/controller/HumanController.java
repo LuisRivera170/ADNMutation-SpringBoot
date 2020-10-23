@@ -26,11 +26,13 @@ public class HumanController {
 	@Autowired
 	private IHumanService humanService;
 	
+	//@Secured({"ROLE_ADMIN"})
 	@GetMapping("/humans")
 	public List<Human> index() {
 		return humanService.findAll();
 	}
 	
+	//@Secured({"ROLE_ADMIN"})
 	@PostMapping("/humans")
 	public ResponseEntity<?> create(@Valid @RequestBody Human human, BindingResult result) {
 		Map<String, Object> response = new HashMap<String, Object>();
@@ -50,6 +52,12 @@ public class HumanController {
 		} 
 	}
 	
+	//@Secured({"ROLE_ADMIN"})
+	@GetMapping("/stats")
+	public Map<String, Object> findStats() {
+		return humanService.findStats();
+	}
+	
 	@PostMapping("/mutation")
 	public ResponseEntity<Void> checkMutation(@RequestBody Human human) {
 		if (human.getDna() == null) {
@@ -61,11 +69,6 @@ public class HumanController {
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 		return new ResponseEntity<Void>(HttpStatus.FORBIDDEN);
-	}
-	
-	@GetMapping("/stats")
-	public Map<String, Object> findStats() {
-		return humanService.findStats();
 	}
 	
 }
